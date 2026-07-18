@@ -1,0 +1,21 @@
+name: Modu Derle
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Java Kurulumu
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'microsoft'
+          java-version: '21'
+      - name: Modu Paketle
+        run: |
+          chmod +x gradlew
+          ./gradlew jar
+      - name: Jar Dosyasini Teslim Et
+        uses: actions/upload-artifact@v4
+        with:
+          name: KelebekModu-Jar
+          path: build/libs/*.jar
