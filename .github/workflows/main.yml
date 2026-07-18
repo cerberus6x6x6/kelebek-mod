@@ -10,14 +10,14 @@ jobs:
         with:
           distribution: 'microsoft'
           java-version: '21'
-      - name: Modu Paketle
+      - name: Klasorleri Temizle ve Derle
         run: |
           chmod +x gradlew
-          ./gradlew jar
-      - name: Jar Dosyasini Teslim Et
+          ./gradlew clean build --no-daemon
+      - name: Tum Projeyi Listele (Hata Ayiklama)
+        run: find . -name "*.jar"
+      - name: Bulunan Tum Jar Dosyalarini Topla
         uses: actions/upload-artifact@v4
         with:
           name: KelebekModu-Jar
-          path: |
-            build/libs/*.jar
-            build/*.jar
+          path: "**/*.jar"
